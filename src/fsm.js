@@ -4,8 +4,8 @@ class FSM {
      * @param config
      */
     constructor(config) {
-        if(typeof config === "undefined"){
-            throw   new Error();
+        if (typeof config === "undefined") {
+            throw new Error();
         }
         this._initial = config.initial;
         this._current = config.initial;
@@ -27,12 +27,12 @@ class FSM {
      * @param state
      */
     changeState(state) {
-        if(this._states.hasOwnProperty(state)){
+        if (this._states.hasOwnProperty(state)) {
             this._undoHistory.push(this._current);
             this._redoHistory = [];
             this._current = state;
         } else {
-            throw   new Error();
+            throw new Error();
         }
     }
 
@@ -66,9 +66,9 @@ class FSM {
      */
     getStates(event) {
         let arrayOfStates = [];
-        if(typeof event === "undefined"){
+        if (typeof event === "undefined") {
             return Object.keys(this._states)
-        } else if(event) {
+        } else if (event) {
             for (let key in this._states) {
                 if (this._states[key].transitions[event]) {
                     arrayOfStates = [...arrayOfStates, key];
@@ -84,7 +84,7 @@ class FSM {
      * @returns {Boolean}
      */
     undo() {
-        if(this._undoHistory.length < 1){
+        if (this._undoHistory.length < 1) {
             return false;
         } else {
             this._redoHistory.push(this._current);
@@ -99,7 +99,7 @@ class FSM {
      * @returns {Boolean}
      */
     redo() {
-        if(this._redoHistory.length < 1){
+        if (this._redoHistory.length < 1) {
             return false;
         } else {
             this._undoHistory.push(this._current);
